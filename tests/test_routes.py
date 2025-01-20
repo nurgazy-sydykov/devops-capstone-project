@@ -142,13 +142,12 @@ class TestAccountService(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_update_accounts(self):
-        """It should Update a Single Account"""        
+        """It should Update a Single Account"""
         test_account = AccountFactory()
         resp = self.client.post(
             BASE_URL, json=test_account.serialize()
         )
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
-        
         new_account = resp.get_json()
         new_account["name"] = "foo"
         resp = self.client.put(
@@ -159,13 +158,12 @@ class TestAccountService(TestCase):
         self.assertEqual(updated_account["name"], "foo")
 
     def test_delete_accounts(self):
-        """It should Delete a Single Account"""        
+        """It should Delete a Single Account"""
         test_account = AccountFactory()
         resp = self.client.post(
             BASE_URL, json=test_account.serialize()
         )
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
-        
         resp = self.client.delete(
             f"{BASE_URL}/{test_account.id}"
         )
